@@ -6,6 +6,9 @@ __pycache__/
 *.so
 *.ipynb_checkpoints
 
+# Logging
+*.log
+
 # Environments
 .env
 .venv
