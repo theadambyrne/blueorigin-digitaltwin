@@ -7,12 +7,12 @@ This project is dedicated to the analysis of the Blue Origin's reusable rocket t
 ## Installation
 
 ```bash
-git clone https://github.com/theadambyrne/blueorigin-flight.git
-cd blueorigin-flight
+git clone https://github.com/theadambyrne/blueorigin-digitaltwin.git
+cd blueorigin-digitaltwin
 
 # Create and activate conda environment
 conda env create -f environment.yml
-conda activate blue-origin
+conda activate bofdt
 
 # Run services (see Architecture for more details)
 python services/Reader.py 
