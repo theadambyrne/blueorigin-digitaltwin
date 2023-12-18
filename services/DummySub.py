@@ -1,3 +1,7 @@
+"""
+Dummy subscriber for testing purpose to verify if the publisher is working.
+"""
+
 import zmq
 
 from utils.config import ConfigParser
@@ -22,7 +26,7 @@ def simple_subscriber():
                 logger.debug(f"Received: {message}")
 
     except KeyboardInterrupt:
-        print("Subscriber terminated.")
+        logger.info("Exiting...")
 
 
 if __name__ == "__main__":

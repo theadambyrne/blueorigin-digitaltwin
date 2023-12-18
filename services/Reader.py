@@ -9,7 +9,11 @@ from utils.config import ConfigParser
 from utils.log import Log
 
 
-class CSVReader:
+class Reader:
+    """
+    Reads a CSV, parses it into a Pandas DataFrame and sends each row to a socket for a subscriber to read.
+    """
+
     def __init__(self):
         self.cursor = 0
         self.delay = config.getfloat("data", "delay")
@@ -49,7 +53,7 @@ class CSVReader:
 
 
 def main():
-    reader = CSVReader()
+    reader = Reader()
 
     timeout = config.getint("network", "timeout")
     end_time = time.time() + timeout
@@ -72,5 +76,5 @@ def main():
 
 if __name__ == "__main__":
     config = ConfigParser()
-    logger = Log("CSVReader")
+    logger = Log("Reader")
     main()

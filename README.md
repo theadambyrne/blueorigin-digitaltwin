@@ -1,6 +1,8 @@
-# Blue Origin Flight Data Analysis
+# Blue Origin Flight: Digital Twin
 
-This project is dedicated to the analysis of the Blue Origin's reusable rocket test (DDL-F1). This project is a continuous initiative for analysis and simulation of the flight data.
+![Blue Origin Rocket](https://wonderfulengineering.com/wp-content/uploads/2017/12/blue-origin-610x343.jpg)
+
+This project is dedicated to the analysis of the Blue Origin's reusable rocket test (DDL-F1) and a continuous initiative for analysis and simulation of the flight data.  The objective is to create a digital twin of the rocket.
 
 ## Installation
 
@@ -11,6 +13,48 @@ cd blueorigin-flight
 # Create and activate conda environment
 conda env create -f environment.yml
 conda activate blue-origin
+
+# Run services (see Architecture for more details)
+python services/Reader.py 
+python services/DummySub.py # In a separate terminal
+```
+
+## Analysis
+
+All exploration of data is done under the [/notebooks](notebooks) directory and serves as a playground for analysis and validation for Proof of Concepts (POC).
+
+## Architecture
+
+Simulation follows a Publish-Subscribe pattern under a Microservice architecture via `0MQ`. The following services are available:
+
+| Service | Type | Handles | Description | Status |
+| --- | --- | --- | --- | --- |
+| [Reader](services/Reader.py) | Publisher | Data | Reads CSV source into dataframe and sends it to a subscriber | :white_check_mark: |
+| [DummySub](services/DummySub.py) | Subscriber | Validation | Validation for publishers, this script is for debugging purposes only | :white_check_mark: |
+| [IMURocket](services/IMURocket.py) | Subscriber | Simulation | Simulates IMU data during flight for a rocket | :x: |
+
+Everything will run via config.cfg file for selecting data and simulation parameters.
+
+**Note:** Utilities such as `ConfigParser` and `Log` employ the Singleton pattern to ensure that only one instance of the class is created and allows cross-module access to the configuration and logging without damaging the integrity of the data.
+
+## Configuration
+
+This entire project is configured via a single configuration file `config.cfg`. A huge help when working with sockets, data, and logging.
+
+```ini
+# config.cfg
+
+[data]
+csv_file = ../dataset/Data/dlc.csv
+delay = 0.1 
+
+[logging]
+active = true
+log_file = spam.log
+
+[network]
+reader = tcp://127.0.0.1:5555
+timeout = 20
 ```
 
 ## Dataset
@@ -18,17 +62,3 @@ conda activate blue-origin
 NASA has published data that was recorded during Flight 1 of the Blue Origin Deorbit, Descent, and Landing Tipping Point (BODDL-TP) Game Changing Development (GCD) Program. This data was recorded during Flight 1 of the Blue Origin Deorbit, Descent, and Landing Tipping Point (BODDL-TP) Game Changing Development (GCD) Program. The flight included IMU, cameras for terrain relative navigation, and range and velocity lidar sensors. The flight was completed under NASA contract 80LARC19C0005 in October 2020.
 
 [Dataset Card](DATASET.txt) | [Source](https://www.kaggle.com/datasets/kazushiadachi/blue-origins-reusable-rocket-test-ddlf1/data)
-
-## Analysis
-
-All exploration of data is done under the [notebooks](notebooks) directory.
-
-## Simulation
-
-Simulation will follow a microservice architecture with the following template of services:
-
-- Reader Service: Reads the data from the dataset for processing.
-- Simulator Service: Listens to reader and handles simulaton of data.
-- Writer Service: Responsible for logging and entities post-op.
-
-Everything will run via config.cfg file for selecting data and simulation parameters.
