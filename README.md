@@ -57,6 +57,12 @@ reader = tcp://127.0.0.1:5555
 timeout = 20
 ```
 
+## Simulation Data
+
+For rocket simulation we need the RocketPy data for engines, stages, and rocket. This can be submoduled but for now is to be downloaded manually.
+Can be found at the official GitHub repo: [RocketPy](https://github.com/RocketPy-Team/RocketPy)
+
+
 ## Dataset
 
 NASA has published data that was recorded during Flight 1 of the Blue Origin Deorbit, Descent, and Landing Tipping Point (BODDL-TP) Game Changing Development (GCD) Program. This data was recorded during Flight 1 of the Blue Origin Deorbit, Descent, and Landing Tipping Point (BODDL-TP) Game Changing Development (GCD) Program. The flight included IMU, cameras for terrain relative navigation, and range and velocity lidar sensors. The flight was completed under NASA contract 80LARC19C0005 in October 2020.
