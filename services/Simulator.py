@@ -8,21 +8,25 @@ from utils.log import Log
 
 class Simulator:
     """
-    Simulates rocket trajectory and outputs the results
+    Simulates rocket flight and exports data for analysis.
     """
 
     def __init__(self):
         self.env = Environment(
-            latitude=32.990254, longitude=-106.974998, elevation=1400
+            latitude=config.getfloat("simulation", "latitude"),
+            longitude=config.getfloat("simulation", "longitude"),
+            elevation=config.getint("simulation", "elevation"),
         )
 
-        tomorrow = datetime.date.today() + datetime.timedelta(days=1)
+        tomorrow = datetime.date.today() + datetime.timedelta(
+            days=config.getint("simulation", "days_ahead")
+        )
         self.env.set_date((tomorrow.year, tomorrow.month, tomorrow.day, 12))
         self.env.set_atmospheric_model(type="Forecast", file="GFS")
         self.env.max_expected_height = 5000
 
         logger.debug(
-            f"Environment {self.env.latitude:2f}°N, {self.env.longitude:2f}°W, {self.env.elevation:2f}m"
+            f"Environment {self.env.latitude:1.2f}°N, {self.env.longitude:1.2f}°W, {self.env.elevation:1.2f}m"
         )
 
         self.motor = SolidMotor(
