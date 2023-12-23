@@ -35,9 +35,9 @@ Simulation follows a Publish-Subscribe pattern under a Microservice architecture
 
 | Module | Description | Status |
 | --- | --- | --- |
-| [ConfigParser](utils/ConfigParser.py) | Parses configuration file | :white_check_mark: |
-| [Log](utils/Log.py) | Logging utility | :white_check_mark: |
-| [Injector](utils/Injector.py) | Inject data into simulation | :x: |
+| [ConfigParser](utils/config.py) | Parses configuration file | :white_check_mark: |
+| [Log](utils/log.py) | Logging utility | :white_check_mark: |
+| [Injector](utils/injector.py) | Inject data into simulation | :x: |
 
 Everything will run via config.cfg file for selecting data and simulation parameters.
 
