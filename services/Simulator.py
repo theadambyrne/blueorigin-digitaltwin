@@ -5,6 +5,7 @@ from rocketpy import Environment, SolidMotor, Rocket, Flight
 
 from utils.config import ConfigParser
 from utils.log import Log
+from utils.misc import suppress_print
 
 
 class Simulator:
@@ -23,6 +24,7 @@ class Simulator:
             days=config.getint("simulation", "days_ahead")
         )
         self.env.set_date((tomorrow.year, tomorrow.month, tomorrow.day, 12))
+
         self.env.set_atmospheric_model(type="Forecast", file="GFS")
 
         self.env.max_expected_height = 5000
@@ -107,6 +109,7 @@ class Simulator:
             lag=1.5,
             noise=(0, 8.3, 0.5),
         )
+
         logger.debug("Parachutes attached to rocket")
 
     def launch(self):
@@ -128,9 +131,11 @@ class Simulator:
         if not os.path.exists(f"flights/{self.recorded}"):
             os.mkdir(f"flights/{self.recorded}")
 
+    @suppress_print
     def export_data(self):
         self.create_export_storable()
         self.flight.export_data(f"flights/{self.recorded}/raw.csv")
+        self.flight.export_kml(f"flights/{self.recorded}/flight.kml")
 
 
 def main():
