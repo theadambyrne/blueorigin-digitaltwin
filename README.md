@@ -31,7 +31,7 @@ Simulation follows a Publish-Subscribe pattern under a Microservice architecture
 | --- | --- | --- | --- | --- |
 | [Reader](services/Reader.py) | Publisher | Data | Reads CSV source into dataframe and sends it to a subscriber | :white_check_mark: |
 | [DummySub](services/DummySub.py) | Subscriber | Validation | Validation for publishers, this script is for debugging purposes only | :white_check_mark: |
-| [IMURocket](services/IMURocket.py) | Subscriber | Simulation | Simulates IMU data during flight for a rocket | :x: |
+| [Simulator](services/Simulator.py) | Subscriber | Simulation | Simulates IMU data during flight for a rocket | :x: |
 
 Everything will run via config.cfg file for selecting data and simulation parameters.
 
