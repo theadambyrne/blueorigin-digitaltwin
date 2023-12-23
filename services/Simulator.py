@@ -112,9 +112,9 @@ class Simulator:
         self.flight = Flight(
             rocket=self.rocket,
             environment=self.env,
-            rail_length=5.2,
-            inclination=85,
-            heading=0,
+            rail_length=config.getfloat("simulation", "rail_length"),
+            inclination=config.getint("simulation", "inclination"),
+            heading=config.getint("simulation", "heading"),
         )
 
     def export_data(self):
