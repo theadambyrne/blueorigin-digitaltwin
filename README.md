@@ -31,7 +31,13 @@ Simulation follows a Publish-Subscribe pattern under a Microservice architecture
 | --- | --- | --- | --- | --- |
 | [Reader](services/Reader.py) | Publisher | Data | Reads CSV source into dataframe and sends it to a subscriber | :white_check_mark: |
 | [DummySub](services/DummySub.py) | Subscriber | Validation | Validation for publishers, this script is for debugging purposes only | :white_check_mark: |
-| [Simulator](services/Simulator.py) | Subscriber | Simulation | Simulates IMU data during flight for a rocket | :x: |
+| [Simulator](services/Simulator.py) | Subscriber | Flight Simulation | Simulates configurable flight | :white_check_mark: |
+
+| Module | Description | Status |
+| --- | --- | --- |
+| [ConfigParser](utils/ConfigParser.py) | Parses configuration file | :white_check_mark: |
+| [Log](utils/Log.py) | Logging utility | :white_check_mark: |
+| [Injector](utils/Injector.py) | Inject data into simulation | :x: |
 
 Everything will run via config.cfg file for selecting data and simulation parameters.
 
@@ -47,6 +53,16 @@ This entire project is configured via a single configuration file `config.cfg`. 
 [data]
 csv_file = ../dataset/Data/dlc.csv
 delay = 0.1 
+
+[simulation]
+latitude = 32.990254
+longitude = -106.974998
+elevation = 1400
+days_ahead = 1
+
+rail_length = 5.2
+inclination = 85
+heading = 0
 
 [logging]
 active = true
