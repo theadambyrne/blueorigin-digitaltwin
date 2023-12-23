@@ -1,3 +1,4 @@
+import os
 import datetime
 
 from rocketpy import Environment, SolidMotor, Rocket, Flight
@@ -23,6 +24,7 @@ class Simulator:
         )
         self.env.set_date((tomorrow.year, tomorrow.month, tomorrow.day, 12))
         self.env.set_atmospheric_model(type="Forecast", file="GFS")
+
         self.env.max_expected_height = 5000
 
         logger.debug(
@@ -117,8 +119,18 @@ class Simulator:
             heading=config.getint("simulation", "heading"),
         )
 
+    def create_export_storable(self):
+        if not os.path.exists("flights/"):
+            os.mkdir("flights/")
+
+        self.recorded = datetime.datetime.now().strftime("%y%m%d_%H%M%S")
+
+        if not os.path.exists(f"flights/{self.recorded}"):
+            os.mkdir(f"flights/{self.recorded}")
+
     def export_data(self):
-        pass
+        self.create_export_storable()
+        self.flight.export_data(f"flights/{self.recorded}/raw.csv")
 
 
 def main():
@@ -128,8 +140,9 @@ def main():
     logger.info("Ready")
     sim.launch()
 
-    logger.info("Exporting flight data...")
+    logger.info("Processing data...")
     sim.export_data()
+    logger.info(f"Flight recorded at flights/{sim.recorded}")
 
     logger.info("Exiting...")
 
