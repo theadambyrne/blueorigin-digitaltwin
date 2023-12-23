@@ -112,3 +112,10 @@ dataset/
 
 # Images
 Images/
+
+# RocketPy files
+rocketpy_data/
+*.kml
+
+# Simulation output
+flights/

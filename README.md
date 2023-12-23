@@ -31,7 +31,7 @@ Simulation follows a Publish-Subscribe pattern under a Microservice architecture
 | --- | --- | --- | --- | --- |
 | [Reader](services/Reader.py) | Publisher | Data | Reads CSV source into dataframe and sends it to a subscriber | :white_check_mark: |
 | [DummySub](services/DummySub.py) | Subscriber | Validation | Validation for publishers, this script is for debugging purposes only | :white_check_mark: |
-| [IMURocket](services/IMURocket.py) | Subscriber | Simulation | Simulates IMU data during flight for a rocket | :x: |
+| [Simulator](services/Simulator.py) | Subscriber | Simulation | Simulates IMU data during flight for a rocket | :x: |
 
 Everything will run via config.cfg file for selecting data and simulation parameters.
 
@@ -56,6 +56,12 @@ log_file = spam.log
 reader = tcp://127.0.0.1:5555
 timeout = 20
 ```
+
+## Simulation Data
+
+For rocket simulation we need the RocketPy data for engines, stages, and rocket. This can be submoduled but for now is to be downloaded manually.
+Can be found at the official GitHub repo: [RocketPy](https://github.com/RocketPy-Team/RocketPy)
+
 
 ## Dataset
 
